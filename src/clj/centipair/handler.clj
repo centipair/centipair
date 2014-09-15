@@ -1,6 +1,7 @@
 (ns centipair.handler
   (:require [compojure.core :refer [defroutes]]
             [centipair.routes.home :refer [home-routes]]
+            [centipair.routes.admin :refer [admin-routes]]
             [centipair.middleware :refer [load-middleware]]
             [centipair.session-manager :as session-manager]
             [noir.response :refer [redirect]]
@@ -49,7 +50,7 @@
 
 (def app (app-handler
            ;; add your application routes here
-           [home-routes base-routes]
+           [admin-routes home-routes base-routes]
            ;; add custom middleware here
            :middleware (load-middleware)
            ;; timeout sessions after 30 minutes

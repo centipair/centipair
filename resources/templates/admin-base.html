@@ -2,11 +2,14 @@
 <html>
   <head>
     <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Welcome to centipair</title>
+    <title>Welcome to Admin</title>
    <!-- Bootstrap -->
    <link href="/css/bootstrap.min.css" rel="stylesheet">
    <!-- TODC Bootstrap theme -->
    <link href="/css/todc-bootstrap.min.css" rel="stylesheet">
+   {% script "/js/angular.js"%}
+   {% script "/js/angular-route.js"%}
+   {% script "/js/admin-app.js"%}
   </head>
   <body>
     <!-- navbar -->
@@ -36,6 +39,7 @@
     <script type="text/javascript">
       var context = "{{servlet-context}}";
     </script>
+    
     {% block page-scripts %}
     {% endblock %}
   </body>

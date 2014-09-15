@@ -8,3 +8,11 @@ pom.xml
 /.lein-*
 /.env
 *.log
+.emacs.*
+.nrepl-port
+*~
+.repl/
+repl/
+out/
+lock
+lab/
