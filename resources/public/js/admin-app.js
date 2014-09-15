@@ -9,7 +9,7 @@ app.config(function($interpolateProvider, $httpProvider) {
 app.config(['$routeProvider', function($routeProvider, $locationProvider) {
     $routeProvider.
 	when('/', {redirectTo:'/dashboard'}).
-	when('/dashboard', {templateUrl: '/admin/dashboard'}).
+	when('/dashboard', {templateUrl: '/admin/dashboard', controller:"AdminCtrl"}).
 	/*when('/site', {templateUrl: '/admin/site', controller:"SitesCtrl"}).
 	when('/site/edit/:id', {templateUrl: function(params){return '/admin/site/edit/'+params.id}, controller:"SiteEditCtrl"}).
 	when('/page', {templateUrl: '/admin/page', controller: "PageCtrl"}).

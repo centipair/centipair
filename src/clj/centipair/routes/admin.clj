@@ -32,6 +32,8 @@
 
 (defn admin-business [] (layout/render "business.html"))
 
+(defn admin-not-found [] "Page not found")
+
 (def-restricted-routes admin-routes
   (GET "/admin-access-denied" [] (admin-access-denied))
   (GET "/admin/" [] (admin-base))
@@ -41,4 +43,5 @@
   (GET "/admin/help" [] (admin-help))
   (GET "/admin/settings" [] (admin-settings))
   (GET "/admin/business" [] (admin-business))
+  (GET "/admin/404" [] (admin-not-found))
   )

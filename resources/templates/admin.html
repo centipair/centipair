@@ -5,30 +5,30 @@
     <title>Admin Dashboard</title>
     <meta name="generator" content="Bootply" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    {% style "/css/bootstrap.min.css" %}
-    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <!-- Bootstrap -->
+   <link href="/css/bootstrap.min.css" rel="stylesheet">
+   <!-- TODC Bootstrap theme -->
+   <link href="/css/todc-bootstrap.min.css" rel="stylesheet">
+   <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+   <link href="/css/custom.css" rel="stylesheet">
     <!--[if lt IE 9]>
         <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
     
-    <!-- CSS code from Bootply.com editor -->
+   
         
-    {% style "/css/tweaks.css" %}
-    {% style "/css/custom.css" %}
-    {% script "/js/angular-file-upload/angular-file-upload-shim.js"%}
+    
     {% script "/js/angular.js"%}
-    {% script "/js/angular-file-upload/angular-file-upload.js"%}
+    
     {% script "/js/angular-route.js"%}
-    {% script "/js/ui-bootstrap-0.11.0.min.js"%}
-    {% script "/js/ui-bootstrap-tpls-0.11.0.min.js"%}    
-    {% script "/js/app.js"%}
-    {% script "/js/admin.js"%}
+    
+    {% script "/js/admin-app.js"%}
     {% script "/js/admin-controllers.js"%}
   </head>
 
   <body>
   
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <nav class="navbar navbar-inverse" role="navigation">
       <div class="container-fluid">
 	<div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -42,9 +42,9 @@
 	<div class="navbar-collapse collapse" ng-controller="MenuCtrl">
           <ul class="nav navbar-nav navbar-right">
             <li><a href="#/dashboard">Dashboard</a></li>
-            <li ng-class="getClass('/settings')"><a href="#/settings">Settings</a></li>
-            <li ng-class="getClass('/profile')"><a href="#/profile">Profile</a></li>
-            <li><a href="#/help">Help</a></li>
+            <li><a href="#/settings" ng-class="getClass('/settings')">Settings</a></li>
+            <li ng-class="getClass('/profile')" ng-class="getClass('/settings')"><a href="#/profile">Profile</a></li>
+            <li><a href="#/help" ng-class="getClass('/help')">Help</a></li>
           </ul>
           <form class="navbar-form navbar-right">
             <input type="text" class="form-control" placeholder="Search...">
@@ -52,26 +52,26 @@
 	</div>
       </div>
     </nav>
-    <div ng-controller="NotifierCtrl" class="notify [{notifier.class}]" ng-show="notifier.show"  ng-cloak>
-      [{notifier.message}]
+   
+    <div id="om-notifier">
+      
     </div>
- 
     <div class="container-fluid">
       
       <div class="row row-offcanvas row-offcanvas-left">
 	
-	<div class="col-sm-3 col-md-2 sidebar-offcanvas" id="sidebar" role="navigation" ng-controller="MenuCtrl">
+	<div class="col-sm-2 col-md-2 sidebar-offcanvas" id="sidebar" role="navigation" ng-controller="MenuCtrl">
           
           <ul class="nav nav-sidebar">
-            <li ng-class="getClass('/dashboard')"><a href="#"><i class="fa fa-dashboard"></i>Dashboard</a></li>
-            <li ng-class="getClass('/site')"><a href="#/site"><i class="fa fa-globe"></i>Sites</a></li>
-            <li ng-class="getClass('/page')"><a href="#/page"><i class="fa fa-clipboard"></i>Pages</a></li>
-            <li ng-class="getClass('/profile')"><a href="#/profile"><i class="fa fa-user"></i>Profile</a></li>
-	    <li ng-class="getClass('/business')"><a href="#/business"><i class="fa fa-suitcase"></i>Business</a></li>
-	    <li ng-class="getClass('/events')"><a href="#/events"><i class="fa fa-calendar"></i>Events</a></li>
+            <li ng-class="getClass('/dashboard')"><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li ng-class="getClass('/site')"><a href="#/site"><i class="fa fa-globe"></i> Sites</a></li>
+            <li ng-class="getClass('/page')"><a href="#/page"><i class="fa fa-clipboard"></i> Pages</a></li>
+            <li ng-class="getClass('/profile')"><a href="#/profile"><i class="fa fa-user"></i> Profile</a></li>
+	    <li ng-class="getClass('/business')"><a href="#/business"><i class="fa fa-suitcase"></i> Business</a></li>
+	    <li ng-class="getClass('/events')"><a href="#/events"><i class="fa fa-calendar"></i> Events</a></li>
 	    <li ng-class="getClass('/shout')"><a href="#/shout"> <i class="fa fa-bullhorn"></i> Shout</a></li>
-	    <li ng-class="getClass('/messsages')"><a href="#/messages"><i class="fa fa-envelope"></i>Messages</a></li>
-	    <li ng-class="getClass('/api')"><a href="#/api"><i class="fa fa-exchange"></i>API</a></li>
+	    <li ng-class="getClass('/messsages')"><a href="#/messages"><i class="fa fa-envelope"></i> Messages</a></li>
+	    <li ng-class="getClass('/api')"><a href="#/api"><i class="fa fa-exchange"></i> API</a></li>
           </ul>    
 	</div><!--/span-->
 	
@@ -104,6 +104,8 @@
       });
       
     </script>
+    {% script "/js/react.js"%}
+    {% script "/js/main.js"%}
     <input type="hidden" value="{{csrfmiddlewaretoken}}" id="csrfmiddlewaretoken"/>
   </body>
 </html>
