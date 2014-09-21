@@ -20,7 +20,7 @@
 
 (defn render-login-form []
   (om/root login-form login-form-data
-           {:target (gdom/getElement "login-form")}))
+           {:target (gdom/getElement "login_form")}))
 
 
 
