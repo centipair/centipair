@@ -27,8 +27,16 @@
     (matches-regex? v #"(?i)[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")))
 
 
+(defn min-length?
+  "Returns true if v is greater than or equal to the given len"
+  [v len]
+  (>= (count v) len))
+
+
 (def required-field-error "This field is required")
 (def email-field-error "Not a valid email address")
+
+(def password-length-error "Minimum 6 characters required")
 
 (defn validation-error [attrs message]
   (assoc attrs :status 422 :message message))
@@ -50,6 +58,8 @@
 
 (defn password-required [attrs]
   (let [value (:value attrs)]
-    (if (not-nil? value)
-      (valid-input attrs)
+    (if (has-value? value)
+      (if (min-length? value 6)
+        (valid-input attrs)
+        (validation-error attrs password-length-error))
       (validation-error attrs required-field-error))))

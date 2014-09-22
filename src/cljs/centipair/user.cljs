@@ -21,8 +21,6 @@
                                :password {:id "password" :label "Password" :value ""}
                                :button {:label "Register"}}))
 
-(def register-email (atom {:id "email" :label "Email"}))
-
 
 (defn register-form [data owner]
   (reify
@@ -30,7 +28,6 @@
     (render [this]
       (dom/form #js {:className "form-group" :role "form"}
                 (om/build text-field data {:opts {:key :email :validator email-required :text-type "text"}})
-                ;;(text-field (:email data))
                 (om/build text-field data {:opts {:key :password :validator password-required :text-type "password"}})
                 (submit-button (:button data))))))
 

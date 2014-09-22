@@ -89,6 +89,7 @@
                       :placeholder (:placeholder (key attrs)) 
                       :className "form-control"
                       :onChange #(check-value % attrs key validator)
+                      :onClick #(check-value % attrs key validator)
                       }))))
 
 
