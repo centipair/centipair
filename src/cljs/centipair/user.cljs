@@ -2,27 +2,39 @@
   (:require [om.core :as om :include-macros true]
             [om.dom :as dom :include-macros true]
             [goog.dom :as gdom])
-  (:use [centipair.components :only [text-field]]))
+  (:use [centipair.components :only [text-field submit-button]]
+        [centipair.validation :only [email-required password-required]]))
 
+
+
+(defn validate-input []
+  (.log js/console "Clicked me"))
 
 (def login-form-data (atom {:username {:id "username" :label "Username"}
-                            :password {:id "password" :label "Password"}}))
+                            :password {:id "password" :label "Password"}
+                            :button {:label "Login" :onclick validate-input}}))
 
 
-(defn login-form [data owner]
+
+
+(def register-form-data (atom {:email {:id "email" :label "Email" :value ""}
+                               :password {:id "password" :label "Password" :value ""}
+                               :button {:label "Register"}}))
+
+(def register-email (atom {:id "email" :label "Email"}))
+
+
+(defn register-form [data owner]
   (reify
     om/IRender
     (render [this]
       (dom/form #js {:className "form-group" :role "form"}
-                (text-field (:username data))
-                (text-field (:password data))))))
+                (om/build text-field data {:opts {:key :email :validator email-required :text-type "text"}})
+                ;;(text-field (:email data))
+                (om/build text-field data {:opts {:key :password :validator password-required :text-type "password"}})
+                (submit-button (:button data))))))
 
 
-(defn render-login-form []
-  (om/root login-form login-form-data
-           {:target (gdom/getElement "login_form")}))
-
-
-
-(def register-form-data (atom {:email {:id "email" :label "Email"}
-                               :password {:id "password" :label "Password"}}))
+(defn render-register-form []
+  (om/root register-form register-form-data
+           {:target (gdom/getElement "register-form")}))

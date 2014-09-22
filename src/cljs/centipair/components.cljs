@@ -34,15 +34,76 @@
       )))
 
 
+(defn default-validator []
+  (.log js/console "sdsdsd")
+  )
+
+
+(defn update-value [map]
+  {:id "email" :label "Email changed"}
+  )
+
+
+(defn check-value
+  [e attrs key validator]
+  (let [value (.. e -target -value)]
+  ;;(.log js/console (.. e -target -value))
+  (om/update! attrs (assoc @attrs key (validator (assoc (key @attrs) :value value))))))
+
 ;;Form components
 
 (def form-status {:422 "has-error"
                   :500 "has-error"
                   :200 ""})
 
-(defn text-field [attrs]
+(defn text-field-bkp [attrs]
   (let [status (str (:status attrs))]
     (dom/div #js {:className (str "form-group " (form-status (keyword (str status))))}
              (dom/label #js {:for (:id attrs) :className "control-label"} (:label attrs))
-             (dom/input #js {:type "text" :ref "new-contact" :id (:id attrs) :placeholder (:placeholder attrs) :className "form-control" })
+             (dom/input #js {:type "text"
+                             :ref "new-contact" 
+                             :id (:id attrs) 
+                             :placeholder (:placeholder attrs) 
+                             :className "form-control" 
+                             :onClick (or (:validator attrs) default-validator)})
              (dom/label #js {:className "control-label"} (:message attrs)))))
+
+
+
+(defn label [attrs owner {:keys [key validator] :as opts}]
+  (reify 
+    om/IRender 
+    (render [this]
+      (dom/label #js {:for (key attrs) :className "control-label"} (:label (key attrs)))
+      )
+    )
+  )
+
+(defn input [attrs owner {:keys [key validator text-type] :as opts}]
+  
+  (reify 
+    om/IRender 
+    (render [this]
+      (dom/input #js {:type text-type
+                      :id (:id (key attrs))
+                      :placeholder (:placeholder (key attrs)) 
+                      :className "form-control"
+                      :onChange #(check-value % attrs key validator)
+                      }))))
+
+
+(defn text-field [attrs owner {:keys [key validator text-type] :as opts}]
+  (reify
+    om/IRender
+    (render [this]
+      (dom/div #js {:className (str "form-group " (form-status (keyword (str (str (:status (key attrs)))))))}
+               (om/build label attrs {:opts {:key key :validator validator}})
+             
+               (om/build input attrs {:opts {:key key :validator validator :text-type text-type}})
+               (dom/label #js {:className "control-label"} (:message (key attrs)))))))
+
+
+(defn submit-button [attrs]
+  (dom/button #js {:type "button" :className "btn btn-primary" :onClick (:onclick attrs)} (:label attrs) ))
+
+

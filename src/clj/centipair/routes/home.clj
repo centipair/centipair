@@ -10,10 +10,16 @@
 (defn about-page []
   (layout/render "about.html"))
 
+
+(defn register-page []
+  (layout/render "register.html"))
+
+
 (defn playground []
   (layout/render "playground.html"))
 
 (defroutes home-routes
   (GET "/" [] (home-page))
   (GET "/about" [] (about-page))
-  (GET "/playground" [] (playground)))
+  (GET "/playground" [] (playground))
+  (GET "/register" [] (register-page)))
