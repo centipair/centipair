@@ -33,30 +33,41 @@
   (>= (count v) len))
 
 
+;;error message for required field 
 (def required-field-error "This field is required")
+
+;;error message for email field
 (def email-field-error "Not a valid email address")
 
+;;error message for password length
 (def password-length-error "Minimum 6 characters required")
 
-(defn validation-error [attrs message]
+(defn validation-error
+  "Adds validation error to attributes when validation fails"
+  [attrs message]
   (assoc attrs :status 422 :message message))
 
-(defn valid-input [attrs]
-  (assoc attrs :status 200 :message "")
-  )
+(defn valid-input
+  "Cleans attributes when input is valid"
+  [attrs]
+  (assoc attrs :status 200 :message ""))
 
 (defn email-required
-  "Required email field"
+  "Required email field validation"
   [attrs]
   (let [value (:value attrs)]
-    (if (not-nil? value)
+    (if (has-value? value)
       (if (is-email? value)
         (valid-input attrs)
         (validation-error attrs email-field-error))
       (validation-error attrs required-field-error))))
 
 
-(defn password-required [attrs]
+(defn password-required
+  "Pasword required validation
+  minimum password lenth is 6
+  "
+  [attrs]
   (let [value (:value attrs)]
     (if (has-value? value)
       (if (min-length? value 6)

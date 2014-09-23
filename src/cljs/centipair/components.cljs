@@ -74,13 +74,9 @@
   (reify 
     om/IRender 
     (render [this]
-      (dom/label #js {:for (key attrs) :className "control-label"} (:label (key attrs)))
-      )
-    )
-  )
+      (dom/label #js {:for (key attrs) :className "control-label"} (:label (key attrs))))))
 
 (defn input [attrs owner {:keys [key validator text-type] :as opts}]
-  
   (reify 
     om/IRender 
     (render [this]
