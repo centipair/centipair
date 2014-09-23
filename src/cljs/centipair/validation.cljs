@@ -36,21 +36,26 @@
 ;;error message for required field 
 (def required-field-error "This field is required")
 
+
 ;;error message for email field
 (def email-field-error "Not a valid email address")
 
+
 ;;error message for password length
 (def password-length-error "Minimum 6 characters required")
+
 
 (defn validation-error
   "Adds validation error to attributes when validation fails"
   [attrs message]
   (assoc attrs :status 422 :message message))
 
+
 (defn valid-input
   "Cleans attributes when input is valid"
   [attrs]
   (assoc attrs :status 200 :message ""))
+
 
 (defn email-required
   "Required email field validation"
