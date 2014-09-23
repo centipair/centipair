@@ -3,7 +3,8 @@
   (:require [om.core :as om :include-macros true]
             [om.dom :as dom :include-macros true]
             [goog.dom :as gdom]
-            [cljs.core.async :refer [put! take! chan <!]]))
+            [cljs.core.async :refer [put! take! chan <!]])
+  (:use [centipair.validation :only [default-validator]]))
 
 
 
@@ -33,41 +34,27 @@
       (reset! notifier-state {:class "notify" :text ""})
       )))
 
-
-(defn default-validator []
-  (.log js/console "sdsdsd")
-  )
-
-
-(defn update-value [map]
-  {:id "email" :label "Email changed"}
+(defn change-form-status
+  [attrs]
+  
   )
 
 
 (defn check-value
   [e attrs key validator]
   (let [value (.. e -target -value)]
-  ;;(.log js/console (.. e -target -value))
-  (om/update! attrs (assoc @attrs key (validator (assoc (key @attrs) :value value))))))
+    (do 
+      (om/update! attrs (assoc @attrs key (validator (assoc (key @attrs) :value value))))
+      
+    )
+  ))
+
+
 
 ;;Form components
-
 (def form-status {:422 "has-error"
                   :500 "has-error"
                   :200 ""})
-
-(defn text-field-bkp [attrs]
-  (let [status (str (:status attrs))]
-    (dom/div #js {:className (str "form-group " (form-status (keyword (str status))))}
-             (dom/label #js {:for (:id attrs) :className "control-label"} (:label attrs))
-             (dom/input #js {:type "text"
-                             :ref "new-contact" 
-                             :id (:id attrs) 
-                             :placeholder (:placeholder attrs) 
-                             :className "form-control" 
-                             :onClick (or (:validator attrs) default-validator)})
-             (dom/label #js {:className "control-label"} (:message attrs)))))
-
 
 
 (defn label [attrs owner {:keys [key validator] :as opts}]
@@ -84,8 +71,9 @@
                       :id (:id (key attrs))
                       :placeholder (:placeholder (key attrs)) 
                       :className "form-control"
-                      :onChange #(check-value % attrs key validator)
-                      :onClick #(check-value % attrs key validator)
+                      :onChange #(check-value % attrs key (or validator default-validator))
+                      :onClick #(check-value % attrs key (or validator default-validator))
+                      :value (:value (key attrs))
                       }))))
 
 
@@ -100,7 +88,14 @@
                (dom/label #js {:className "control-label"} (:message (key attrs)))))))
 
 
-(defn submit-button [attrs]
-  (dom/button #js {:type "button" :className "btn btn-primary" :onClick (:onclick attrs)} (:label attrs) ))
+(defn submit-button [attrs owner {:keys [key onclick] :as opts}]
+  (reify 
+    om/IRender 
+    (render [this]
+      (dom/button #js {:type "button"
+                       :className "btn btn-primary"
+                       :disabled (:form-status (:centipair attrs))
+                       :onClick #(onclick attrs)}  
+                  (:label (key attrs))))))
 
 

@@ -57,6 +57,10 @@
   (assoc attrs :status 200 :message ""))
 
 
+(defn default-validator [attrs]
+  (valid-input attrs))
+
+
 (defn email-required
   "Required email field validation"
   [attrs]
