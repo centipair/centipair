@@ -5,10 +5,8 @@
 </div>
 {% endblock %}
 {% block page-scripts %}
-    {% script "/js/react.js"%}
-    {% script "/js/main.js"%}
 <script>
-  centipair.user.render_register_form();
+  function loadFunctionRegistry(){return "user_registration"}
 </script>
 
 {% endblock %}
