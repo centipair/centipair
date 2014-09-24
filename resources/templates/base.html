@@ -38,11 +38,12 @@
     <script type="text/javascript">
       var context = "{{servlet-context}}";
     </script>
+    {% script "/js/react.js"%}
+    {% script "/js/main.js"%}
     {% block page-scripts %}
     
     {% endblock %}
-    {% script "/js/react.js"%}
-    {% script "/js/main.js"%}
+    
   </body>
 </html>
 

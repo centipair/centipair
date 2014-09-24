@@ -3,7 +3,11 @@
   )
 
 
-(def function-registry {:user_registration user/render-register-form})
+(def function-registry {:render-register-form user/render-register-form})
 
 
-(((keyword (js/loadFunctionRegistry)) function-registry))
+
+(defn ^:export load-function [name]
+  (((keyword name) function-registry)))
+
+;;(((keyword (js/loadFunctionRegistry)) function-registry))
