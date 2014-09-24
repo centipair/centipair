@@ -56,9 +56,10 @@
                             
                             ;; minimal JS optimization directive
                             :optimizations :whitespace
-                            
+                            ;;:optimizations :advanced
                             ;; generated JS code prettyfication
                             :pretty-print true
+                            ;;:pretty-print false
                             ;;:preamble ["react/react.min.js"]
                             ;;:externs ["react/externs/react.js"]
                             }}]}
