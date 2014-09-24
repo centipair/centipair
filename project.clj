@@ -58,5 +58,8 @@
                             :optimizations :whitespace
                             
                             ;; generated JS code prettyfication
-                            :pretty-print true}}]}
+                            :pretty-print true
+                            ;;:preamble ["react/react.min.js"]
+                            ;;:externs ["react/externs/react.js"]
+                            }}]}
    :min-lein-version "2.0.0")
