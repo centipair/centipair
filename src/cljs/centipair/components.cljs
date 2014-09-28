@@ -34,10 +34,31 @@
       (reset! notifier-state {:class "notify" :text ""})
       )))
 
+
+(defn deduct-form-status [status-list]
+  (if (> (reduce + (map #(if (= % true) 0 1) status-list)) 0)
+    false
+    true))
+
+(defn handle-form-status
+  [field]  
+  (if (nil? (:validation-required? field))
+    true
+    (if (nil? (:status field))
+      false 
+      (if (= 200 (:status field))
+        true
+        false))))
+
+
 (defn change-form-status
   [attrs]
-  
-  )
+  (let [form-status  (deduct-form-status (map handle-form-status (map second (into [] attrs))))]
+    (if form-status
+      (assoc attrs :centipair {:form-status ""})
+      attrs
+      )
+    ))
 
 
 (defn check-value
@@ -45,10 +66,7 @@
   (let [value (.. e -target -value)]
     (do 
       (om/update! attrs (assoc @attrs key (validator (assoc (key @attrs) :value value))))
-      
-    )
-  ))
-
+      (om/update! attrs (change-form-status @attrs))      )))
 
 
 ;;Form components
@@ -62,6 +80,7 @@
     om/IRender 
     (render [this]
       (dom/label #js {:for (key attrs) :className "control-label"} (:label (key attrs))))))
+
 
 (defn input [attrs owner {:keys [key validator text-type] :as opts}]
   (reify 
