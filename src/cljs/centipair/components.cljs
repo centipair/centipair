@@ -56,7 +56,7 @@
   (let [form-status  (deduct-form-status (map handle-form-status (map second (into [] attrs))))]
     (if form-status
       (assoc attrs :centipair {:form-status ""})
-      attrs
+      (assoc attrs :centipair {:form-status "disabled"})
       )
     ))
 
