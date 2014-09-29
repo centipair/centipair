@@ -3,7 +3,8 @@
             [clojure.string :as s]
             [ring.util.response :refer [content-type response]]
             [compojure.response :refer [Renderable]]
-            [environ.core :refer [env]]))
+            [environ.core :refer [env]]
+            [centipair.core.auth.session :as session]))
 
 (def template-path "templates/")
 
@@ -20,7 +21,8 @@
                     ;; example when using mock requests), then
                     ;; .getContextPath might not exist
                     (try (.getContextPath context)
-                         (catch IllegalArgumentException _ context))))
+                         (catch IllegalArgumentException _ context)))
+                  :csrfmiddlewaretoken (session/get-csrf-token))
         (parser/render-file (str template-path template))
         response)
       "text/html; charset=utf-8")))

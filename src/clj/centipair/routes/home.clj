@@ -18,8 +18,12 @@
 (defn playground []
   (layout/render "playground.html"))
 
+(defn check-email [request]
+  (str request)
+  )
 (defroutes home-routes
   (GET "/" [] (home-page))
   (GET "/about" [] (about-page))
   (GET "/playground" [] (playground))
-  (GET "/register" [] (register-page)))
+  (GET "/register" [] (register-page))
+  (GET "/check-email" request (check-email request)))
