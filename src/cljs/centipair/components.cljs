@@ -56,9 +56,7 @@
   (let [form-status  (deduct-form-status (map handle-form-status (map second (into [] attrs))))]
     (if form-status
       (assoc attrs :centipair {:form-status ""})
-      (assoc attrs :centipair {:form-status "disabled"})
-      )
-    ))
+      (assoc attrs :centipair {:form-status "disabled"}))))
 
 
 (defn check-value
@@ -66,7 +64,7 @@
   (let [value (.. e -target -value)]
     (do 
       (om/update! attrs (assoc @attrs key (validator (assoc (key @attrs) :value value))))
-      (om/update! attrs (change-form-status @attrs))      )))
+      (om/update! attrs (change-form-status @attrs)))))
 
 
 ;;Form components
