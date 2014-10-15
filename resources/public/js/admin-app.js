@@ -17,5 +17,5 @@ app.config(['$routeProvider', function($routeProvider, $locationProvider) {
 	when('/help', {templateUrl: '/admin/help', controller: "HelpCtrl"}).
 	when('/settings', {templateUrl: '/admin/settings', controller: "SettingsCtrl"}).
 	when('/business', {templateUrl: '/admin/business', controller: "BusinessCtrl"}).*/
-	otherwise({templateUrl: '/admin/404',controller:"Admin404Ctrl"});
+	otherwise({templateUrl: '/control/404',controller:"Admin404Ctrl"});
 }]);

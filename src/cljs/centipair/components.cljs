@@ -41,7 +41,7 @@
     true))
 
 (defn handle-form-status
-  [field]  
+  [field]
   (if (nil? (:validation-required? field))
     true
     (if (nil? (:status field))
@@ -90,6 +90,7 @@
                       :className "form-control"
                       :onChange #(check-value % attrs key (or validator default-validator))
                       :onClick #(check-value % attrs key (or validator default-validator))
+                      :onFocus #(check-value % attrs key (or validator default-validator))
                       :value (:value (key attrs))
                       }))))
 
