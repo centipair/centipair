@@ -101,7 +101,6 @@
     (render [this]
       (dom/div #js {:className (str "form-group " (form-status (keyword (str (str (:status (key attrs)))))))}
                (om/build label attrs {:opts {:key key :validator validator}})
-             
                (om/build input attrs {:opts {:key key :validator validator :text-type text-type}})
                (dom/label #js {:className "control-label"} (:message (key attrs)))))))
 

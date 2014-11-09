@@ -3,7 +3,8 @@
             [om.dom :as dom :include-macros true]
             [goog.dom :as gdom])
   (:use [centipair.components :only [text-field submit-button]]
-        [centipair.validation :only [email-required password-required]]))
+        [centipair.validation :only [email-required password-required]]
+        [centipair.ajax :only [post]]))
 
 
 
@@ -24,18 +25,22 @@
                                :centipair {:form-status "disabled"}}))
 
 
+(defn handle-registration-success [response] (.log js/console "yoyooy"))
+
 (defn register-user [data]
   (.log js/console data)
+  (post "/register" {:test "test success" } handle-registration-success)
   )
 
 (defn register-form [data owner]
   (reify
     om/IRender
     (render [this]
-      (dom/form #js {:className "form-group" :role "form"}
+      (dom/div #js {:className "form-group"}
                 (om/build text-field data {:opts {:key :email  :validator email-required :text-type "text"}})
                 (om/build text-field data {:opts {:key :password :validator password-required :text-type "password"}})
                 (om/build submit-button data {:opts {:key :button :onclick register-user}})))))
+
 
 
 (defn render-register-form []

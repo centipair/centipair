@@ -60,6 +60,12 @@
 (defn default-validator [attrs]
   (valid-input attrs))
 
+(defn required 
+  [attrs]
+  (let [value (:value attrs)]
+    (if (has-value? value)
+      (valid-input attrs)
+      (validation-error attrs required-field-error))))
 
 (defn email-required
   "Required email field validation"
