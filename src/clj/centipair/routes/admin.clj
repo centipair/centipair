@@ -14,6 +14,8 @@
 
 (defn admin-base [] (layout/render "admin.html"))
 
+(defn admin2 [] (layout/render "admin2.html"))
+
 (defn dashboard []
   (layout/render "dashboard.html"))
 
@@ -37,6 +39,7 @@
 (def-restricted-routes admin-routes
   (GET "/admin-access-denied" [] (admin-access-denied))
   (GET "/admin/" [] (admin-base))
+  (GET "/admin2/" [] (admin2))
   (GET "/admin/dashboard" [] (dashboard))
   (GET "/admin/page" [] (page))
   (GET "/admin/profile" [] (user-profile))

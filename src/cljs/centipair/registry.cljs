@@ -9,5 +9,3 @@
 
 (defn ^:export load-function [name]
   (((keyword name) function-registry)))
-
-;;(((keyword (js/loadFunctionRegistry)) function-registry))
