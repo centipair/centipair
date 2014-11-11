@@ -11,14 +11,14 @@
 (def side-menu-items (atom [{:label "Dashboard" :icon "dashboard" :active true :url "/dashboard"}
                             {:label "Sites" :icon "globe" :active false :url "/sites"}]))
 
-(defn deactivate [url index item] 
+(defn deactivate [url item] 
   (if (= url (:url item)) 
-    (reset! side-menu-items (assoc item :active true))
-    (reset! side-menu-items (assoc item :active false))))
+    (assoc item :active true)
+    (assoc item :active false)))
 
 
 (defn activate-side-menu-item [url]
-   (reset! side-menu-items (into [] (keep-indexed (partial deactivate url) @side-menu-items))))
+   (reset! side-menu-items (into [] (map (partial deactivate url) @side-menu-items))))
 
 
 (defn render-side-menu []
@@ -27,7 +27,7 @@
      (om/component 
       (apply dom/ul #js {:className "nav nav-sidebar"}
              (map (fn [item] (dom/li #js{:className (if (:active item) "active")} 
-                                     (dom/a #js {:href (str "#" (:url item)) :onClick (fn [e] (js/console.log "clicked me"))} 
+                                     (dom/a #js {:href (str "#" (:url item))} 
                                             (dom/i #js {:className (str "fa fa-" (:icon item))}) " "
                                             (:label item)
                                             )))
