@@ -38,8 +38,7 @@
 
 (defn show-page [page]
   (js/console.log page)
-  (activate-side-menu-item page)
-  )
+  (activate-side-menu-item page))
 
 
 (secretary/set-config! :prefix "#")
