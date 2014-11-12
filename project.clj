@@ -20,7 +20,7 @@
                  [liberator "0.10.0"]
                  [org.clojure/clojurescript "0.0-2322"]
                  [com.cemerick/piggieback "0.1.3"]
-                 [om "0.7.1"]
+                 [om "0.8.0-alpha1"]
                  [cljs-ajax "0.3.2"]
                  [secretary "1.2.1"]
                  [enfocus "2.1.1"]]

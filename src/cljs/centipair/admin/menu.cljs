@@ -4,11 +4,13 @@
             [goog.dom :as gdom]
             [goog.events :as events]
             [goog.history.EventType :as EventType]
+            [enfocus.core :as ef]
             [secretary.core :as secretary :refer-macros [defroute]])
-   (:import goog.History))
+  (:require-macros [enfocus.macros :as em])
+  (:import goog.History))
 
 
-(def side-menu-items (atom [{:label "Dashboard" :icon "dashboard" :active true :url "/dashboard"}
+(def side-menu-items (atom [{:label "Dashboard" :icon "dashboard" :active false :url "/dashboard"}
                             {:label "Sites" :icon "globe" :active false :url "/sites"}]))
 
 (defn deactivate [url item] 
@@ -35,17 +37,25 @@
    side-menu-items
    {:target (. js/document (getElementById "sidebar"))}))
 
+(em/deftemplate view-dashboard "/admin/dashboard" [])
 
 (defn show-page [page]
   (js/console.log page)
-  (activate-side-menu-item page))
+  (activate-side-menu-item page)
+  (ef/at 
+   ["#view"] (ef/content (view-dashboard))))
 
 
 (secretary/set-config! :prefix "#")
-(defroute "/dashboard" [] (show-page "/dashboard"))
+
+(defroute "/dashboard" [] 
+  (show-page "/dashboard")
+  )
 (defroute "/sites" [] (show-page "/sites"))
 
-(let [h (History.)]
-  (goog.events/listen h EventType/NAVIGATE #(secretary/dispatch! (.-token %)))
-  (doto h (.setEnabled true)))
+(doto (History.)
+  (goog.events/listen
+    EventType/NAVIGATE 
+    #(em/wait-for-load (secretary/dispatch! (.-token %))))
+  (.setEnabled true))
 

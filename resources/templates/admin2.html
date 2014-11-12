@@ -66,13 +66,12 @@
     <footer>
       <p class="pull-right">©2014 Company</p>
     </footer>
-    
-        
-    
-    <!-- JavaScript jQuery code from Bootply.com editor -->
    
     {% script "/js/react.js"%}
     {% script "/js/main.js"%}
+    <script>
+      centipair.registry.load_function("render-admin-side-menu")
+    </script>
     <input type="hidden" value="{{csrfmiddlewaretoken}}" id="csrfmiddlewaretoken"/>
   </body>
 </html>
