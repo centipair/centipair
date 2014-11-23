@@ -10,17 +10,17 @@
   (:import goog.History))
 
 
-(def side-menu-items (atom [{:label "Dashboard" :icon "dashboard" :active false :url "/dashboard"}
-                            {:label "Sites" :icon "globe" :active false :url "/sites"}]))
+(def side-menu-items (atom [{:id "dashboard" :label "Dashboard" :icon "dashboard" :active false :url "/dashboard"}
+                            {:id "page":label "Page" :icon "globe" :active false :url "/page"}]))
 
-(defn deactivate [url item] 
-  (if (= url (:url item)) 
+(defn deactivate [id item] 
+  (if (= id (:id item)) 
     (assoc item :active true)
     (assoc item :active false)))
 
 
-(defn activate-side-menu-item [url]
-   (reset! side-menu-items (into [] (map (partial deactivate url) @side-menu-items))))
+(defn activate-side-menu-item [id]
+   (reset! side-menu-items (into [] (map (partial deactivate id) @side-menu-items))))
 
 
 (defn render-side-menu []
@@ -38,20 +38,25 @@
    {:target (. js/document (getElementById "sidebar"))}))
 
 (em/deftemplate view-dashboard "/admin/dashboard" [])
+(em/deftemplate view-pages "/admin/page" [])
+(em/deftemplate view-help "/admin/help" [])
+
+(def templates {:dashboard view-dashboard
+                :pages view-pages})
 
 (defn show-page [page]
-  (js/console.log page)
-  (activate-side-menu-item page)
-  (ef/at 
-   ["#view"] (ef/content (view-dashboard))))
+  (let [template-function ((keyword page) templates)]
+    (activate-side-menu-item page)
+    (ef/at 
+     ["#view"] (ef/content (template-function)))))
 
 
 (secretary/set-config! :prefix "#")
 
-(defroute "/dashboard" [] 
-  (show-page "/dashboard")
+(defroute "/dashboard" []
+  (show-page "dashboard")
   )
-(defroute "/sites" [] (show-page "/sites"))
+(defroute "/page" [] (show-page "page"))
 
 (doto (History.)
   (goog.events/listen
