@@ -85,22 +85,21 @@
 (defn insert-user-account [user-map]
   (let [user_id (time-based)]
     (insert (dbcon) user-account-table {:user_id user_id
-                                     :username (:username user-map)
-                                     :email (:email user-map)
-                                     :first_name (:first_name user-map)
-                                     :last_name (:last_name user-map)
-                                     :active (:active user-map)
-                                     :password (crypto/encrypt-password (:password user-map))})
+                                        :username (:username user-map)
+                                        :email (:email user-map)
+                                        :first_name (:first_name user-map)
+                                        :last_name (:last_name user-map)
+                                        :active (:active user-map)
+                                        :password (crypto/encrypt-password (:password user-map))})
     user_id))
 
 (defn insert-registration-request [user-map]
   (insert (dbcon) user-account-registration-table {:registration_key (:registration_key user-map)
-                                           :user_id (:user_id user-map)})
-  )
+                                           :user_id (:user_id user-map)}))
 
 
 (defn register-user [user-map]
-  (let [user_id (insert-user-account (conj user-map {:active true}))
+  (let [user_id (insert-user-account (assoc user-map :active false))
         user-login-map {:user_id user_id
                         :email (:email user-map)
                         :username (:username user-map)
@@ -128,6 +127,7 @@
       nil)))
 
 (defn get-user-account [user-login]
+  (println (first (select-user-account (:user_id user-login))))
   (if (nil? user-login)
     nil
     (first (select-user-account (:user_id user-login)))))

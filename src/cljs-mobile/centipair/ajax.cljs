@@ -1,5 +1,5 @@
 (ns centipair.ajax
-  (:require [ajax.core :refer [GET POST json-request-format edn-request-format]])
+  (:require [ajax.core :refer [GET POST]])
   (:use [centipair.components :only [notify]]))
 
 
@@ -16,5 +16,4 @@
     (POST url
           :params params
           :handler function-handler
-          :error-handler error-handler
-          :format (json-request-format))))
+          :error-handler error-handler)))

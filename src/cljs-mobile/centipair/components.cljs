@@ -112,7 +112,7 @@
       (dom/button #js {:type "button"
                        :className "btn btn-primary"
                        :disabled (:form-status (:centipair attrs))
-                       :onClick #(onclick @attrs)}
+                       :onClick #(onclick attrs)}  
                   (:label (key attrs))))))
 
 

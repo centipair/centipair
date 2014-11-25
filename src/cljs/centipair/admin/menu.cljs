@@ -5,7 +5,8 @@
             [goog.events :as events]
             [goog.history.EventType :as EventType]
             [enfocus.core :as ef]
-            [secretary.core :as secretary :refer-macros [defroute]])
+            [secretary.core :as secretary :refer-macros [defroute]]
+            [centipair.admin.pages :as pages])
   (:require-macros [enfocus.macros :as em])
   (:import goog.History))
 
@@ -42,7 +43,7 @@
 (em/deftemplate view-help "/admin/help" [])
 
 (def templates {:dashboard view-dashboard
-                :pages view-pages})
+                :page view-pages})
 
 (defn show-page [page]
   (let [template-function ((keyword page) templates)]
@@ -56,7 +57,10 @@
 (defroute "/dashboard" []
   (show-page "dashboard")
   )
-(defroute "/page" [] (show-page "page"))
+(defroute "/page" [] 
+  (show-page "page")
+  (pages/render-pages-view)
+  )
 
 (doto (History.)
   (goog.events/listen

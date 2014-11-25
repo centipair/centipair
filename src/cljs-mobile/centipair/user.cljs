@@ -29,8 +29,7 @@
 
 (defn register-user [data]
   (.log js/console data)
-  (post "/register-submit" {:email (:value (:email data))
-                            :password (:value (:password data))} handle-registration-success)
+  (post "/register" {:test "test success" } handle-registration-success)
   )
 
 (defn register-form [data owner]
@@ -44,6 +43,6 @@
 
 
 
-(defn render-register-form []
-  (om/root register-form register-form-data
+
+(defn render-register-form [] (om/root register-form register-form-data
            {:target (gdom/getElement "register-form")}))

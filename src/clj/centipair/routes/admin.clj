@@ -14,7 +14,7 @@
 
 (defn admin-base [] (layout/render "admin.html"))
 
-(defn admin2 [] (layout/render "admin2.html"))
+(defn admin [] (layout/render "admin2.html"))
 
 (defn dashboard []
   (layout/render "dashboard.html"))
@@ -24,7 +24,7 @@
   (send-status 403 "Access denied"))
 
 
-(defn page [] "Page ")
+(defn page [] (layout/render "pages.html"))
 
 (defn user-profile [] (layout/render "profile.html"))
 
@@ -38,8 +38,8 @@
 
 (def-restricted-routes admin-routes
   (GET "/admin-access-denied" [] (admin-access-denied))
-  (GET "/admin/" [] (admin-base))
-  (GET "/admin2/" [] (admin2))
+  (GET "/adminold/" [] (admin-base))
+  (GET "/admin/" [] (admin))
   (GET "/admin/dashboard" [] (dashboard))
   (GET "/admin/page" [] (page))
   (GET "/admin/profile" [] (user-profile))

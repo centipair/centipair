@@ -2,6 +2,7 @@
 
 /*Key space*/
 /*Use your keyspace name*/
+DROP KEYSPACE core;
 CREATE KEYSPACE core WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
 USE core;
 

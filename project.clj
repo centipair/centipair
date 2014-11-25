@@ -18,6 +18,7 @@
                  [org.immutant/immutant "2.0.0-alpha1"]
                  [com.draines/postal "1.11.1"]
                  [liberator "0.10.0"]
+                 [com.novemberain/validateur "2.3.1"]
                  [org.clojure/clojurescript "0.0-2322"]
                  [com.cemerick/piggieback "0.1.3"]
                  [om "0.8.0-alpha1"]
@@ -74,6 +75,38 @@
                  ;; Google Closure (CLS) options configuration
                  :compiler {;; CLS generated JS script filename
                             :output-to "resources/public/js/main.js"
+                            
+                            ;; minimal JS optimization directive
+                            :optimizations :whitespace
+                            ;; generated JS code prettyfication
+                            :pretty-print true
+                            
+                            
+                            }}
+                {;; CLJS source code path
+                 :id "release-mobile"
+                 :source-paths ["src/cljs-mobile"]
+                 
+                 ;; Google Closure (CLS) options configuration
+                 :compiler {;; CLS generated JS script filename
+                            :output-to "mobile/www/js/main.js"
+                            
+                            ;; minimal JS optimization directive
+                            ;;:optimizations :whitespace
+                            :optimizations :advanced
+                            ;; generated JS code prettyfication
+                            ;;:pretty-print true
+                            :pretty-print false
+                            :preamble ["react/react.min.js"]
+                            :externs ["react/externs/react.js"]
+                            }}
+                {;; CLJS source code path
+                 :id "dev-mobile"
+                 :source-paths ["src/cljs-mobile"]
+                 
+                 ;; Google Closure (CLS) options configuration
+                 :compiler {;; CLS generated JS script filename
+                            :output-to "mobile/www/js/main.js"
                             
                             ;; minimal JS optimization directive
                             :optimizations :whitespace
