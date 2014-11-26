@@ -1,4 +1,4 @@
-/*usage <path>/cqlsh < src/core/cql/schema.sql*/
+/*usage <path>/cqlsh < src/clj/centipair/core/cql/schema.sql*/
 
 /*Key space*/
 /*Use your keyspace name*/

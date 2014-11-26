@@ -16,4 +16,5 @@ repl/
 out/
 lock
 lab/
+secret.clj
 main.js

@@ -4,7 +4,8 @@
             [ring.util.response :refer [content-type response]]
             [compojure.response :refer [Renderable]]
             [environ.core :refer [env]]
-            [centipair.core.auth.session :as session]))
+            [centipair.core.auth.session :as session]
+            [ring.middleware.anti-forgery :refer :all]))
 
 (def template-path "templates/")
 
@@ -22,7 +23,7 @@
                     ;; .getContextPath might not exist
                     (try (.getContextPath context)
                          (catch IllegalArgumentException _ context)))
-                  :csrfmiddlewaretoken (session/get-csrf-token))
+                  :csrfmiddlewaretoken *anti-forgery-token*)
         (parser/render-file (str template-path template))
         response)
       "text/html; charset=utf-8")))

@@ -108,7 +108,7 @@
       (insert-user-login-username user-login-map)
       (insert-user-login-email user-login-map)
       (insert-registration-request user-login-map)
-      ;;(future (send-registration-email user-login-map)) TODO: add registration success email
+      (send-registration-email user-login-map)
       {:status-code 200 :message "registration success"})))
 
 
@@ -127,7 +127,6 @@
       nil)))
 
 (defn get-user-account [user-login]
-  (println (first (select-user-account (:user_id user-login))))
   (if (nil? user-login)
     nil
     (first (select-user-account (:user_id user-login)))))

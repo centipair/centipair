@@ -52,7 +52,6 @@
            ;; add your application routes here
            [admin-routes home-routes base-routes]
            ;; add custom middleware here
-           :middleware (load-middleware)
            ;; timeout sessions after 30 minutes
            :session-options {:timeout (* 60 30)
                              :timeout-response (redirect "/")}
@@ -61,4 +60,4 @@
            ;; serialize/deserialize the following data formats
            ;; available formats:
            ;; :json :json-kw :yaml :yaml-kw :edn :yaml-in-html
-           :formats [:json-kw :edn]))
+           :formats [:json-kw :edn :transit-json]))
