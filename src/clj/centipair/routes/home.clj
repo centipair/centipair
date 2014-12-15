@@ -1,11 +1,11 @@
 (ns centipair.routes.home
   (:use centipair.core.auth.user.models
         centipair.core.auth.user.forms
-        centipair.core.cryptography)
+        centipair.core.cryptography
+        centipair.core.utilities.appresponse)
   (:require [compojure.core :refer :all]
             [centipair.layout :as layout]
-            [centipair.util :as util]
-            [clojure.edn :as edn]))
+            [centipair.util :as util]))
 
 (defn home-page []
   (layout/render
@@ -19,8 +19,7 @@
   (layout/render "register.html"))
 
 (defn register-submit [request]
-  (println (user-registration-form (:params request)))
-  (user-registration-form (:params request)))
+  (send-response (user-registration-form (:params request))))
 
 (defn activate [registration-key]
   (let [user-id (activate-account (str-uuid registration-key))]
@@ -35,8 +34,8 @@
   (layout/render "playground.html"))
 
 (defn check-email [request]
-  (str request)
-  )
+  (str request))
+
 (defroutes home-routes
   (GET "/" [] (home-page))
   (GET "/about" [] (about-page))

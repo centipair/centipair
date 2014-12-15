@@ -2,10 +2,12 @@
   (:require [compojure.core :refer [defroutes]]
             [centipair.routes.home :refer [home-routes]]
             [centipair.routes.admin :refer [admin-routes]]
+            [centipair.routes.news :refer [news-routes]]
             [centipair.middleware :refer [load-middleware]]
             [centipair.session-manager :as session-manager]
             [noir.response :refer [redirect]]
             [noir.util.middleware :refer [app-handler]]
+            [ring.middleware.defaults :refer [site-defaults]]
             [compojure.route :as route]
             [taoensso.timbre :as timbre]
             [taoensso.timbre.appenders.rotor :as rotor]
@@ -48,15 +50,28 @@
   (cronj/shutdown! session-manager/cleanup-job)
   (timbre/info "shutdown complete!"))
 
+(def session-defaults
+  {:timeout (* 60 30)
+   :timeout-response (redirect "/")})
+
+(defn- mk-defaults
+       "set to true to enable XSS protection"
+       [xss-protection?]
+       (-> site-defaults
+           (update-in [:session] merge session-defaults)
+           (assoc-in [:security :anti-forgery] xss-protection?)))
+
+
 (def app (app-handler
            ;; add your application routes here
-           [admin-routes home-routes base-routes]
+           [news-routes admin-routes home-routes base-routes]
            ;; add custom middleware here
            ;; timeout sessions after 30 minutes
            :session-options {:timeout (* 60 30)
                              :timeout-response (redirect "/")}
            ;; add access rules here
            :access-rules []
+           :ring-defaults (mk-defaults false)
            ;; serialize/deserialize the following data formats
            ;; available formats:
            ;; :json :json-kw :yaml :yaml-kw :edn :yaml-in-html

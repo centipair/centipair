@@ -38,9 +38,9 @@
    side-menu-items
    {:target (. js/document (getElementById "sidebar"))}))
 
-(em/deftemplate view-dashboard "/admin/dashboard" [])
-(em/deftemplate view-pages "/admin/page" [])
-(em/deftemplate view-help "/admin/help" [])
+;;(em/deftemplate view-dashboard "/admin/dashboard" [])
+;;(em/deftemplate view-pages "/admin/page" [])
+;;(em/deftemplate view-help "/admin/help" [])
 
 (def templates {:dashboard view-dashboard
                 :page view-pages})
@@ -55,11 +55,11 @@
 (secretary/set-config! :prefix "#")
 
 (defroute "/dashboard" []
-  (show-page "dashboard")
+  ;;(show-page "dashboard")
   )
 (defroute "/page" [] 
-  (show-page "page")
-  (pages/render-pages-view)
+  ;;(show-page "page")
+  ;;(pages/render-pages-view)
   )
 
 (doto (History.)

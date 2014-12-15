@@ -5,10 +5,11 @@
 
 
 (defn error-handler [response]
-  (.log js/console "error")
-  (notify 404)
-  true
-  )
+  (let [status (:status response)]
+    (case status
+      404 (notify 404)
+      500 (notify 500)
+      422 (notify 422 "The submitted data is not valid"))))
 
 
 (defn post [url params function-handler]
@@ -19,4 +20,5 @@
           :handler function-handler
           :error-handler error-handler
           :format (json-request-format)
-          :headers {:X-CSRF-Token (utils/get-value "csrfmiddlewaretoken")})))
+          ;;:headers {:X-CSRF-Token (utils/get-value "csrfmiddlewaretoken")}
+          )))

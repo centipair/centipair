@@ -13,8 +13,7 @@
 
 (def login-form-data (atom {:username {:id "username" :label "Username"}
                             :password {:id "password" :label "Password"}
-                            :button {:label "Login" :onclick validate-input}
-                            }))
+                            :button {:label "Login" :onclick validate-input}}))
 
 
 
@@ -25,15 +24,18 @@
                                :centipair {:form-status "disabled"}}))
 
 
-(defn handle-registration-success [response] (.log js/console "yoyooy"))
+(defn handle-registration-success 
+  [response] (.log js/console (:status-text response)))
 
-(defn register-user [data]
-  (.log js/console data)
-  (post "/register-submit" {:email (:value (:email data))
-                            :password (:value (:password data))} handle-registration-success)
-  )
+(defn register-user
+  [data]
+  (post "/register-submit" 
+        {:email (:value (:email data)) :password (:value (:password data))}
+        handle-registration-success))
 
-(defn register-form [data owner]
+
+(defn register-form
+  [data owner]
   (reify
     om/IRender
     (render [this]

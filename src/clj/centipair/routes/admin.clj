@@ -29,7 +29,6 @@
 (defn user-profile [] (layout/render "profile.html"))
 
 (defn admin-help [] (layout/render "help.html"))
-
 (defn admin-settings [] (layout/render "settings.html"))
 
 (defn admin-business [] (layout/render "business.html"))

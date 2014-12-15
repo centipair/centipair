@@ -71,7 +71,7 @@
   (let [validation-result (registration-validator params)]
     (if (valid? validation-result)
       (register-user (assoc params :username (:email params)))
-      validation-result)))
+      {:status-code 422 :errors validation-result})))
 
 
 (def login-validator

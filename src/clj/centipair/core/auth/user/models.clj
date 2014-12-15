@@ -108,7 +108,7 @@
       (insert-user-login-username user-login-map)
       (insert-user-login-email user-login-map)
       (insert-registration-request user-login-map)
-      (send-registration-email user-login-map)
+      (future (send-registration-email user-login-map)) ;;TODO: Track this
       {:status-code 200 :message "registration success"})))
 
 

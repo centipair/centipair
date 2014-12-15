@@ -14,9 +14,10 @@
   (code response-codes))
 
 (defn send-response [response-map]
-  (response/status (:status-code response-map) (generate-string response-map)))
+  (response/content-type "application/json; charset=utf-8" 
+                         (response/status 
+                          (:status-code response-map)
+                          (generate-string response-map))))
 
 (defn send-status [code content]
   (response/status code content))
-
-

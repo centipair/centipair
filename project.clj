@@ -8,16 +8,17 @@
                  [ring-server "0.3.1"]
                  [selmer "0.7.5"]
                  [com.taoensso/timbre "3.3.1"]
-                 [com.taoensso/tower "3.0.1"]
-                 [markdown-clj "0.9.47"]
+                 [com.taoensso/tower "3.0.2"]
+                 [markdown-clj "0.9.58"
+                  :exclusions [com.keminglabs/cljx]]
                  [environ "1.0.0"]
-                 [im.chit/cronj "1.4.2"]
-                 [noir-exception "0.2.2"]
+                 [im.chit/cronj "1.4.3"]
+                 [noir-exception "0.2.3"]
                  [prone "0.6.0"]
                  [clojurewerkz/cassaforte "2.0.0-beta3"]
                  [org.immutant/immutant "2.0.0-alpha1"]
                  [com.draines/postal "1.11.1"]
-                 [liberator "0.10.0"]
+                 [liberator "0.12.2"]
                  [com.novemberain/validateur "2.3.1"]
                  [cheshire "5.3.1"]
                  [org.clojure/clojurescript "0.0-2322"]
@@ -33,8 +34,8 @@
                  :timeout 120000}
    :main centipair.run
    :jvm-opts ["-server"]
-   :plugins [[lein-ring "0.8.10"]
-            [lein-environ "0.5.0"]
+   :plugins [[lein-ring "0.8.13"]
+            [lein-environ "1.0.0"]
             [lein-ancient "0.5.5"]
             [lein-cljsbuild "1.0.3"]]
    :ring {:handler centipair.handler/app
